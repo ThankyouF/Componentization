@@ -1,0 +1,209 @@
+#ground {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin;
+  background-image: url("../img/ground.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
+}
+
+#ground:hover {
+  border: 1px solid orange;
+}
+
+#sphere {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/sphere.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#sphere:hover {
+  border: 1px solid orange;
+}
+
+#tank1 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/tank1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#tank1:hover {
+  border: 1px solid orange;
+}
+
+#tank2 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/tank2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#tank2:hover {
+  border: 1px solid orange;
+}
+/*
+#tank3 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/tank3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#tank3:hover {
+  border: 1px solid orange;
+}
+*/
+#tube1 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/tube1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#tube1:hover {
+  border: 1px solid orange;
+}
+
+#fang1 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#fang1:hover {
+  border: 1px solid orange;
+}
+
+#fang3 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#fang3:hover {
+  border: 1px solid orange;
+}
+
+#fang4 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang4.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#fang4:hover {
+  border: 1px solid orange;
+}
+
+#fang6 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang6.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#fang6:hover {
+  border: 1px solid orange;
+}
+
+#fang8 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang8.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 	
+}
+
+#fang8:hover {
+  border: 1px solid orange;
+}
+
+#fang9 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang9.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#fang9:hover {
+  border: 1px solid orange;
+}
+
+#fang10 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang10.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#fang10:hover {
+  border: 1px solid orange;
+}
+
+#fang11 {
+  border: 1px solid #ececec;
+  margin: 1.2vmin;
+  width: 40%;
+  height: 12.5vmin; 
+  background-image: url("../img/fang11.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   
+}
+
+#fang11:hover {
+  border: 1px solid orange;
+}

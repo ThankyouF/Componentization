@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>3D Componentization</title>
+        <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/navstyle.css" />     
+        <link rel="stylesheet" type="text/css" href="static/css/modelimg.css" />                                 
+    </head>
+
+    <body class="Site">        
+<!--
+        <header>
+            <ul id="navlist">
+                <li><a onclick="remove()">删除</a></li>
+                <li><a onclick="addModel()">增加模型</a></li>
+                <li><a onclick="pointModel()">锚点</a></li>
+            </ul>
+        </header>
+-->
+        <main class="Site-content">
+<!--            <div class="left">
+                <input type="file" id="uv_img" onchange="getImage();" style="display:none">
+                <div id="ground" onclick="test_input()"></div>
+                <div id="sphere" onclick="test(this)"></div>
+                <div id="tube1" onclick="test(this)"></div>
+                <div id="changfang1" onclick="test(this)"></div>
+                <div id="fang3" onclick="test(this)"></div>
+                <div id="fang4" onclick="test(this)"></div>
+                <div id="fang6" onclick="test(this)"></div>
+                <div id="fang8" onclick="test(this)"></div>                                        
+            </div>-->
+<!--            <div class="main">
+                <div class="nav">
+                    <div class="nav">
+                        <div class="a">
+                                <div class="span" id="bg1">                                 
+                                </div>
+                        </div>  
+                    </div> 
+                </div>
+            </div>           
+-->
+            <input type="checkbox" id="sidemenu">
+            <div class="leftnav">
+                <div class="llnav">
+                    <ul id="modelnav">
+                        <li><a index="0" class="tab_btn curr_btn">土地</a></li>
+                        <li><a index="1" class="tab_btn">罐体</a></li>
+                        <li><a index="2" class="tab_btn">管道</a></li>
+                        <li><a index="3" class="tab_btn">房子</a></li>
+                    </ul>
+                </div>
+                <div class="modelImg">
+                    <div class="tab_div curr_div">
+                        <input type="file" id="uv_img" onchange="getImage();" style="display:none">
+                        <div id="ground" onclick="getGround()"></div>
+                    </div>
+                    <div class="tab_div">
+                        <div id="sphere" onclick="getID(this)"></div>
+                        <div id="tank1" onclick="getID(this)"></div>
+                        <div id="tank2" onclick="getID(this)"></div>
+<!--                        <div id="tank3" onclick="getID(this)"></div>-->
+                    </div>
+                    <div class="tab_div">
+                        <div id="tube1" onclick="getID(this)"></div>
+                    </div>
+                    <div class="tab_div">
+                        <div id="fang1" onclick="getID(this)"></div>
+                        <div id="fang3" onclick="getID(this)"></div>
+                        <div id="fang4" onclick="getID(this)"></div>
+                        <div id="fang6" onclick="getID(this)"></div>
+                        <div id="fang8" onclick="getID(this)"></div>
+                        <div id="fang9" onclick="getID(this)"></div>
+                        <div id="fang10" onclick="getID(this)"></div> 
+                        <div id="fang11" onclick="getID(this)"></div>                            
+                    </div>
+                </div>
+            </div>
+            <div id="wrap">
+                <label id="sideMenuControl" for="sidemenu" onclick="change();">≡</label>
+            </div>
+            <div class="container" id="container">
+<!--                <iframe id="painter" frameborder="no" border="0" src="painter.html"></iframe>-->
+            </div>
+            <div class="buttons">
+                <button class="button1" id="point" onclick="pointModel()">锚点</button>
+                <button class="button1" id="linetube" onclick="lineTube()">管道</button>            
+                <button class="button1" id="add" onclick="addModel()" disabled="true">增加模型</button>                
+                <button class="button" id="delete" onclick="remove()">删除</button>            
+            </div>
+<!--            <div class="toolbar">
+                
+                <button class="button" id="clockWise" onclick="clockWiseRotate()">Y轴顺时针90度</button>
+                <button class="button" id="counterClockWise" onclick="counterClockWiseRotate()">Y轴逆时针90度</button>
+                <button class="button" id="leftR" onclick="leftRotate()">左转90度</button>
+                <button class="button" id="rightR" onclick="rightRotate()">右转90度</button>
+                <button class="button" id="color" onclick="changeColor()">改变颜色</button>
+
+                <button class="button" id="point" onclick="pointModel()">锚点</button>            
+                <button class="button" id="add" onclick="addModel()">增加模型</button>                
+                <button class="button" id="delete" onclick="remove()">删除</button>
+                
+            </div>-->
+        </main>
+
+<!--        <footer> here is foot </footer>-->
+
+<!--        <script type="text/javascript" src="static/js/button.js"></script> -->
+        <script type="text/javascript" src="static/js/build/three.js"></script>
+        <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="static/js/Detector.js"></script>
+        <script type="text/javascript" src="static/js/loader/ColladaLoader.js"></script>
+        <script type="text/javascript" src="static/js/control/OrbitControls.js"></script>
+        <script type="text/javascript" src="static/js/control/DragControls.js"></script>
+        <script type="text/javascript" src="static/js/control/TransformControls.js"></script>
+        <script type="text/javascript" src="static/js/painter.js"></script> 
+
+        <script type="text/javascript">
+            //伸缩图标改变
+            var isChange = true;
+
+            function change() {
+
+                var label=document.getElementById("sideMenuControl"); 
+
+                if( isChange ) {
+                    label.innerText="＜"; 
+                }
+                else {
+                    label.innerText="≡";
+                }
+
+                isChange = !isChange;
+
+            }
+
+            function getClass(className) { //className指class的值
+
+                var tagname = document.getElementsByTagName('*');  //获取指定元素
+                var tagnameAll = [];     //这个数组用于存储所有符合条件的元素
+                for (var i = 0; i < tagname.length; i++) {     //遍历获得的元素
+                    if (tagname[i].className.indexOf(className)>=0){     //如果获得的元素中的class的值等于指定的类名，就赋值给tagnameAll
+                        tagnameAll[tagnameAll.length] = tagname[i];
+                    }
+                }
+                return tagnameAll;
+                 
+            }   
+         
+            window.onload=function(){//载入事件
+                var btn=getClass('tab_btn');//获取按钮数组
+                var div=getClass('tab_div');//获取div数组
+                for(i=0;i<btn.length;i++){
+                    btn[i].onclick=function(){//按钮点击事件
+                        var index=(this.getAttribute('index')-0);//获取是第几个按钮按下
+                        if(btn[index].className.indexOf('curr_btn')>=0) return;//如果按下的按钮为当前选中的按钮则无反应
+                        for(i=0;i<btn.length;i++){
+                            if(index==i){
+                                btn[i].className='tab_btn curr_btn';
+                                div[i].className='tab_div curr_div';
+                            }else{
+                                btn[i].className='tab_btn';
+                                div[i].className='tab_div';
+                            }
+                        }
+                    }
+                }
+            };
+
+
+        </script>  
+
+    </body>
+
+</html>

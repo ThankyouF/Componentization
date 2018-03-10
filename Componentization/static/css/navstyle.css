@@ -1,0 +1,176 @@
+/*.main {  
+  position: fixed;
+  width: 0px;
+  overflow: visible;
+}
+
+.nav {
+  display: inline-block;
+  float: right;
+  clear: both;
+}
+
+.a {
+  position: relative;
+  left: 30px;
+  padding: 10px 30px 10px 60px;
+  margin: 10px;
+/*  background: #8DC2BC;
+/*  x-box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 8px 0 8px -8px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out 0.1s;
+  -o-transition: all 0.3s ease-in-out 0.1s;
+  -ms-transition: all 0.3s ease-in-out 0.1s;
+  -moz-transition: all 0.3s ease-in-out 0.1s;
+  -webkit-transition: all 0.3s ease-in-out 0.1s;
+}
+
+.a:hover {
+  position: relative;
+  left: 100%;
+  margin-left: -32px;
+  background-color: rgba(27, 79, 147,0.5); 
+/*  box-shadow: 0 -8px 8px -8px rgba(0, 0, 0, 0.5),
+              0 8px 8px -8px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+}
+
+a:hover #bg1{ background: #539770; }
+*/
+
+/*控制侧边栏进出的按钮（外部包裹）*/
+#wrap {
+  position: fixed;
+  margin-left: 20px;
+  padding: 10px;
+  transition: 0.2s ease-out;
+}
+
+/*控制侧边栏进出的按钮（内部文字样式）*/
+label {
+  /*控制侧边栏进出的按钮*/
+  background: white;
+  border-radius: 70px;
+  color: orange;
+  cursor: pointer;
+  display: block;
+  font-family: Courier New;
+  font-size: 2em;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+/*    display: inline-block;*/
+}
+
+label:hover {
+  background: #000;
+}      
+
+#sidemenu{
+  display: none;
+}
+
+#sidemenu:checked + div {
+  /*为被选中的sidemenu后的aside设置属性（紧邻）*/
+  left: 0;
+  /*点击按钮即选中checked后,侧边栏位置变为贴着左边,配合ease-out使用,有渐变滑出的效果*/
+}
+
+#sidemenu:checked ~ #wrap {
+  /*为被选中的sidemenu后的wrap设置属性（非紧邻）*/
+  padding-left: 42vmin;
+}
+
+.leftnav {
+/*  border: 1px solid red;*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40vmin;
+  width: 40vmin;
+  background: white;
+  transition: 0.2s ease-out; 
+  display: flex; 
+}                  
+
+.llnav {
+  border-right: 1px solid #ECECEC;
+/*  float: left;
+  width: 22%;*/
+  flex: 0 0 22%;
+  height: 100%;
+}
+
+#modelnav {
+/*  border: 1px solid black;*/
+  margin-left: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#modelnav li {
+  font-family: Microsoft Yahei, serif;
+  font-size: 2vmin;
+  font-weight: bold;
+/*  border: 1px solid #ECECEC;
+  padding: 3vmin 0;*/
+}
+/*
+#modelnav li a {
+  color: #000000;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 3vmin 0;
+/*  background-color: #ECECEC;
+}
+
+#modelnav li a:hover {
+  background-color: #bbbbbb;
+  color: #fff;
+}
+*/
+.modelImg {
+/*  border: 1px solid black;*/
+  flex: 1;
+  overflow: auto;
+/*  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;*/
+}
+
+.tab_btn{
+  color: #000000;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 3vmin 0;
+}
+
+.tab_btn:hover{
+  background-color: #bbbbbb;
+  color: #fff;
+}
+
+.tab_div {
+  display: none;
+}
+
+.curr_btn{
+  background-color: #bbbbbb;
+  color: #fff;
+}
+
+.curr_div{
+  display: flex !important;
+  flex-flow: row wrap;
+  align-content: flex-start;
+}
+
