@@ -43,6 +43,7 @@
                 </div>
             </div>           
 -->
+            <!-- 左侧模型导航栏 -->
             <input type="checkbox" id="sidemenu">
             <div class="leftnav">
                 <div class="llnav">
@@ -82,15 +83,33 @@
             <div id="wrap">
                 <label id="sideMenuControl" for="sidemenu" onclick="change();">≡</label>
             </div>
+
+            <!-- 3D主视图 -->
             <div class="container" id="container">
 <!--                <iframe id="painter" frameborder="no" border="0" src="painter.html"></iframe>-->
             </div>
+
+            <!-- 顶部菜单栏 -->
+            <div class="toolbarpos">
+<!--                <ul id="toolbarnav">
+                    <li>土地</li>
+                    <li>罐体</li>
+                    <li>管道</li>
+                    <li>房子</li>
+                </u>                -->
+                <button class="btn" id="point" onclick="pointModel()">锚点</button>
+                <button class="btn" id="linetube" onclick="lineTube()">管道</button>            
+                <button class="btn" id="add" onclick="addModel()" disabled="true">增加模型</button>                
+                <button class="btnr" id="delete" onclick="remove()">删除</button>                 
+            </div>
+<!--
             <div class="buttons">
                 <button class="button1" id="point" onclick="pointModel()">锚点</button>
                 <button class="button1" id="linetube" onclick="lineTube()">管道</button>            
                 <button class="button1" id="add" onclick="addModel()" disabled="true">增加模型</button>                
                 <button class="button" id="delete" onclick="remove()">删除</button>            
-            </div>
+            </div>-->
+
 <!--            <div class="toolbar">
                 
                 <button class="button" id="clockWise" onclick="clockWiseRotate()">Y轴顺时针90度</button>
@@ -114,7 +133,7 @@
         <script type="text/javascript" src="static/js/Detector.js"></script>
         <script type="text/javascript" src="static/js/loader/ColladaLoader.js"></script>
         <script type="text/javascript" src="static/js/control/OrbitControls.js"></script>
-        <script type="text/javascript" src="static/js/control/DragControls.js"></script>
+<!--        <script type="text/javascript" src="static/js/control/DragControls.js"></script> -->
         <script type="text/javascript" src="static/js/control/TransformControls.js"></script>
         <script type="text/javascript" src="static/js/painter.js"></script> 
 
