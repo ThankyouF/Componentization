@@ -83,12 +83,13 @@ function createModelInfo( pos, modelname, index ) {
 /**
  * 管道确定位置信息格式存储
  */
-function createTubeInfo( tubename, number, startpos, angle  ) {
+function createTubeInfo( tubename, number, startpos, angle, mode  ) {
 
 	this.name = tubename || "undefined";	//模型名字
 	this.number = number || 0;			//一排管道个数
 	this.startpos = startpos || new THREE.Vector3( 0, 0, 0 );	//初始管道起始位置
 	this.angle = angle || 0;		//管道旋转角度
+	this.mode = mode || -1;
 
 }
 
@@ -264,7 +265,7 @@ function loadModel( id ) {
 
         daeModel = collada.scene;
         daeModel.scale.set( 1, 1, 1 );
-//		bbox = new 	THREE.BoxHelper( daeModel, 0xff0000 );
+		bbox = new 	THREE.BoxHelper( daeModel, 0xff0000 );
 		g.add( daeModel );
 //		g.add( bbox );
 
@@ -461,7 +462,7 @@ function onDocumentMouseDown( event ) {
 
 			var dir = "static/uv_img/" + uv_img_name;
 			var voxelMaterial = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture( dir ) } );
-			var voxelGeometry = new THREE.BoxGeometry( 1000, 20, 1000 * aspect );
+			var voxelGeometry = new THREE.BoxGeometry( 1000, 10, 1000 * aspect );
 
 			//UV贴图 
 			var voxelImg = [
@@ -497,7 +498,7 @@ function onDocumentMouseDown( event ) {
 		    var voxel = new THREE.Mesh( voxelGeometry, voxelMaterial );
 
 			//模型位置设置
-			voxel.position.set( 0, -10, 0 );			
+			voxel.position.set( 0, -5, 0 );			
 			scene.add( voxel );		//场景中添加模型
 			index ++;		//场景中物体格式+1
 
@@ -688,7 +689,7 @@ function onDocumentMouseDown( event ) {
 					INTERSECTED.material.opacity = 0.5;
 
 					var pos = new THREE.Vector3( INTERSECTED.position.x, INTERSECTED.position.y, INTERSECTED.position.z );
-//					console.log( pos );
+					console.log( pos );
 
 					if( isDoubleChoose ) {
 
@@ -746,37 +747,7 @@ function render() {
 
 			for ( var i = 0; i < addModels.length; i ++ ) {
 
-				var voxelMaterial = new THREE.MeshLambertMaterial( { color: 0xff0000, visible: false, transparent: true } );
-				
-				var Box = getBox( addModels[ i ].name );//获取包围盒信息
-				X = Box[ 2 ];	//获取缩放倍数
-				var voxel = new THREE.Mesh( Box[ 0 ], voxelMaterial );	//包围盒
-				voxel.scale.set( X, X, X );	//缩放包围盒
-
-				//获取位置
-				voxel.position.set( addModels[ i ].position.x, addModels[ i ].position.y, addModels[ i ].position.z );
-				console.log( boundingBoxName.length );
-				voxel.name = addModels[ i ].name + boundingBoxName.length;	//设置包围盒名字
-
-	//			voxel.position.y = voxel.position.y - Box[ 1 ].y * X / 2;
-
-				var pos = new THREE.Vector3();
-				pos.x = voxel.position.x;
-				pos.y = voxel.position.y;
-				pos.z = voxel.position.z;
-
-				var model = loadModel( addModels[ i ].name );	//加载模型
-				model.scale.set( X, X, X );	//放大
-				model.position.set( pos.x, pos.y, pos.z );	//设置模型位置
-
-				scene.add( voxel );		//场景中添加包围盒
-				scene.add( model );		//场景中添加模型
-				index = index + 2;		//场景中物体格式+1
-
-				objects.push( voxel );
-				boundingBoxes.push( voxel );
-				models.push( model );
-				boundingBoxName.push( voxel.name );
+				sceneAddModel( "point", addModels[ i ], -1 );
 
 			}
 
@@ -798,47 +769,18 @@ function render() {
 
 				for( var j = 0; j < tubeInfos[ i ].number; j ++ ) {
 
-					var voxelMaterial = new THREE.MeshLambertMaterial( { color: 0xff0000, visible: false, transparent: true } );
-					
-					var Box = getBox( tubeInfos[ i ].name );//获取包围盒信息
-					X = Box[ 2 ];	//获取缩放倍数
-					var voxel = new THREE.Mesh( Box[ 0 ], voxelMaterial );	//包围盒
-					voxel.scale.set( X, X, X );	//缩放包围盒
+					sceneAddModel( "tube", tubeInfos[ i ], j );	
 
-					//获取位置
-					if( tubeInfos[ i ].angle == -Math.PI / 2 )
-						voxel.position.set( tubeInfos[ i ].startpos.x - j * 77, tubeInfos[ i ].startpos.y, tubeInfos[ i ].startpos.z );
-					else if( tubeInfos[ i ].angle == Math.PI / 2 )
-						voxel.position.set( tubeInfos[ i ].startpos.x + j * 77, tubeInfos[ i ].startpos.y, tubeInfos[ i ].startpos.z );
-					else if( tubeInfos[ i ].angle == 0 )
-						voxel.position.set( tubeInfos[ i ].startpos.x, tubeInfos[ i ].startpos.y, tubeInfos[ i ].startpos.z + j * 77 );
-					else
-						voxel.position.set( tubeInfos[ i ].startpos.x, tubeInfos[ i ].startpos.y, tubeInfos[ i ].startpos.z - j * 77 );						
-	//				console.log( boundingBoxName.length );
-					voxel.name = tubeInfos[ i ].name + boundingBoxName.length;	//设置包围盒名字
+				}
 
-		//			voxel.position.y = voxel.position.y - Box[ 1 ].y * X / 2;
+				if( i < tubeInfos.length - 1 ) {
 
-					var pos = new THREE.Vector3();
-					pos.x = voxel.position.x;
-					pos.y = voxel.position.y;
-					pos.z = voxel.position.z;
+					if( tubeInfos[ i ].mode * tubeInfos[ i + 1 ].mode < 0 ) {
 
-					var model = loadModel( tubeInfos[ i ].name );	//加载模型
-					model.scale.set( X, X, X );	//放大
-					model.position.set( pos.x, pos.y, pos.z );	//设置模型位置
+						sceneAddModel( "transtube", tubeInfos[ i ], tubeInfos[ i + 1 ] );
 
-					voxel.rotation.y = tubeInfos[ i ].angle;
-					model.rotation.y = tubeInfos[ i ].angle;
+					}
 
-					scene.add( voxel );		//场景中添加包围盒
-					scene.add( model );		//场景中添加模型
-					index = index + 2;		//场景中物体格式+1
-
-					objects.push( voxel );
-					boundingBoxes.push( voxel );
-					models.push( model );
-					boundingBoxName.push( voxel.name );					
 				}
 
 			}
@@ -1300,70 +1242,182 @@ function changeButtonStyle( name, mode ) {
 		case 0:
 			name.disabled = true;
 			name.style.color="#bbbbbb";
-/*			name.style.background="#bbbbbb";*/
 		    name.style.cursor = "default";	
 		    break;
 		case 1:
 			name.disabled = false;
 			name.style.color="black";
-/*			name.style.background = "#4CAF50";*/
 			name.style.cursor = "pointer";	
 			break;	    	
 	}
-
  	
 }
 
 
 /**
+ * 计算两点间距离
+ */
+function calculateDistance( x, y ) {
+
+	return Math.pow( ( x * x + y * y ), 0.5 );
+
+}
+
+/**
  * 油管线
  */
 function calculateDirection( array ) {
-/*
-	var x = Math.abs( array[ 0 ].x - array[ 1 ].x );
-	var z = Math.abs( array[ 0 ].z - array[ 1 ].z );
 
-	midpos.x = ( array[ 0 ].x + array[ 1 ].x ) / 2;
-	midpos.y = 0;
-	midpos.z = ( array[ 0 ].z + array[ 1 ].z ) / 2;
-
-	if( x > z ) {
-		rotateAngel = Math.PI/2;
-		return x;
-	}
-	else {
-		rotateAngel = 0;
-		return z;
-	}
-
-	tubeNums.splice( 0, tubeNums.length );
-	rotateAngels.splice( 0, rotateAngels.length );
-*/
 	for( var i = 0; i < tubeInfos.length; i ++ ) {
+
 		var x = array[ i + 1 ].x - array[ i ].x ;
 		var z = array[ i + 1 ].z - array[ i ].z ;
+		var dis = calculateDistance( x, z );
+		var angle = Math.atan( Math.abs( x / z ) );
+
 		if( Math.abs( x ) > Math.abs( z ) ) {
-			if( x < 0 ) {
-				tubeInfos[ i ].angle = -Math.PI / 2;
-				tubeInfos[ i ].number = Math.round( Math.abs( x ) / 77 );
-				tubeInfos[ i ].startpos.x -= 38.5;
+			if( x < 0 ) {	
+				tubeInfos[ i ].number = Math.round( dis / 78.7 );
+				tubeInfos[ i ].startpos.x -= 39.35;
+				if( z > 0 ) {
+					tubeInfos[ i ].angle = -angle;
+					tubeInfos[ i ].mode = 1;
+				}
+				else {
+					tubeInfos[ i ].angle = -Math.PI + angle;
+					tubeInfos[ i ].mode = 2;
+				}
+
 			}
 			else {
-				tubeInfos[ i ].angle = Math.PI / 2;
-				tubeInfos[ i ].number = Math.round( x / 77 );
-				tubeInfos[ i ].startpos.x += 38.5;				
+				tubeInfos[ i ].number = Math.round( dis / 78.7 );
+				tubeInfos[ i ].startpos.x += 39.35;
+				if( z > 0 ) {
+					tubeInfos[ i ].angle = angle;
+					tubeInfos[ i ].mode = 3;
+				}
+				else {
+					tubeInfos[ i ].angle = Math.PI - angle;
+					tubeInfos[ i ].mode = 4;								
+				}
 			}
 		}
 		else {
-			if( z > 0 ) {
-				tubeInfos[ i ].angle = 0;
-				tubeInfos[ i ].number = Math.round( z / 77 );
+			if( z < 0 ) {
+				tubeInfos[ i ].number = Math.round( dis / 78.7 );
+				tubeInfos[ i ].startpos.z -= 39.35;
+				if( x > 0 ) {
+					tubeInfos[ i ].angle = Math.PI - angle;
+					tubeInfos[ i ].mode = -1;
+				}
+				else {
+					tubeInfos[ i ].angle = -Math.PI + angle;
+					tubeInfos[ i ].mode = -2;
+				}
 			}
 			else {
-				tubeInfos[ i ].angle = Math.PI;
-				tubeInfos[ i ].number = Math.round( Math.abs( z ) / 77 );				
+				tubeInfos[ i ].number = Math.round( dis / 78.7 );
+				tubeInfos[ i ].startpos.z += 50;
+				if( x > 0 ) {
+					tubeInfos[ i ].angle = angle;
+					tubeInfos[ i ].mode = -3;
+				}
+				else {
+					tubeInfos[ i ].angle = -angle;
+					tubeInfos[ i ].mode = -4;								
+				}
 			}			
 		}
 	}
 
 } 
+
+
+function sceneAddModel( mode, m, j ) {
+
+	var voxelMaterial = new THREE.MeshLambertMaterial( { color: 0xff0000, visible: false, transparent: true } );
+	
+	if( mode == "transtube") {
+		var Box = getBox( "trans" + m.name );//获取包围盒信息
+		var model = loadModel( "trans" + m.name );	//加载模型
+	}
+	else {
+		var Box = getBox( m.name );
+		var model = loadModel( m.name );	//加载模型
+	}
+
+	X = Box[ 2 ];	//获取缩放倍数
+	var voxel = new THREE.Mesh( Box[ 0 ], voxelMaterial );	//包围盒
+	voxel.scale.set( X, X, X );	//缩放包围盒
+
+	//获取位置
+	switch( mode ) {
+
+		case "point":
+			voxel.position.set( m.position.x, m.position.y, m.position.z );
+			break;
+		case "tube":
+			var angle = m.angle;
+			voxel.rotation.y = angle;
+			if( m.mode == 1 )
+				voxel.position.set( m.startpos.x + j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z + j * 78.7 * Math.cos( angle ) );
+			else if( m.mode == 2 )
+				voxel.position.set( m.startpos.x + j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z - j * 78.7 * Math.cos( angle ) );						
+			else if( m.mode == 3 )
+				voxel.position.set( m.startpos.x - j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z + j * 78.7 * Math.cos( angle ) );
+			else if( m.mode == 4 )
+				voxel.position.set( m.startpos.x - j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z - j * 78.7 * Math.cos( angle ) );
+			else if( m.mode == -1 )
+				voxel.position.set( m.startpos.x + j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z - j * 78.7 * Math.cos( angle ) );
+			else if( m.mode == -2 )
+				voxel.position.set( m.startpos.x - j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z - j * 78.7 * Math.cos( angle ) );						
+			else if( m.mode == -3 )
+				voxel.position.set( m.startpos.x + j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z + j * 78.7 * Math.cos( angle ) );
+			else if( m.mode == -4 )
+				voxel.position.set( m.startpos.x - j * 78.7 * Math.sin( angle ), m.startpos.y, m.startpos.z + j * 78.7 * Math.cos( angle ) );					
+			break;
+		case "transtube":
+			if( j.mode == 1 || j.mode == 2 ) {
+				voxel.position.set( j.startpos.x + 39.35, j.startpos.y, j.startpos.z );		
+			}
+			else if( j.mode == 3 || j.mode == 4 ) {
+				voxel.position.set( j.startpos.x - 39.35, j.startpos.y, j.startpos.z );
+			}
+			else if( j.mode == -1 || j.mode == -2 ) {
+				voxel.position.set( j.startpos.x, j.startpos.y, j.startpos.z + 39.35 );	
+//				voxel.rotation.y = -Math.PI/2;					
+			}
+			else if( j.mode == -3 || j.mode == -4 ) {
+				voxel.position.set( j.startpos.x, j.startpos.y, j.startpos.z - 50 );
+				voxel.rotation.y = -Math.PI/2;	
+			}
+			break;		
+				
+	}
+
+	if( mode == "transtube")
+		voxel.name = "trans" + m.name + boundingBoxName.length;	//设置包围盒名字
+	else
+		voxel.name = m.name + boundingBoxName.length;
+
+	var pos = new THREE.Vector3();
+	pos.x = voxel.position.x;
+	pos.y = voxel.position.y;
+	pos.z = voxel.position.z;
+
+	model.scale.set( X, X, X );	//放大
+	model.position.set( pos.x, pos.y, pos.z );	//设置模型位置
+
+	var r = voxel.rotation.y;
+	model.rotation.y = r;
+
+	scene.add( voxel );		//场景中添加包围盒
+	scene.add( model );		//场景中添加模型
+	index = index + 2;		//场景中物体格式+1
+
+	objects.push( voxel );
+	boundingBoxes.push( voxel );
+	models.push( model );
+	boundingBoxName.push( voxel.name );
+
+}
