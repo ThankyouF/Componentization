@@ -1,47 +1,3 @@
-/*.main {  
-  position: fixed;
-  width: 0px;
-  overflow: visible;
-}
-
-.nav {
-  display: inline-block;
-  float: right;
-  clear: both;
-}
-
-.a {
-  position: relative;
-  left: 30px;
-  padding: 10px 30px 10px 60px;
-  margin: 10px;
-/*  background: #8DC2BC;
-/*  x-box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 8px 0 8px -8px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out 0.1s;
-  -o-transition: all 0.3s ease-in-out 0.1s;
-  -ms-transition: all 0.3s ease-in-out 0.1s;
-  -moz-transition: all 0.3s ease-in-out 0.1s;
-  -webkit-transition: all 0.3s ease-in-out 0.1s;
-}
-
-.a:hover {
-  position: relative;
-  left: 100%;
-  margin-left: -32px;
-  background-color: rgba(27, 79, 147,0.5); 
-/*  box-shadow: 0 -8px 8px -8px rgba(0, 0, 0, 0.5),
-              0 8px 8px -8px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-}
-
-a:hover #bg1{ background: #539770; }
-*/
-
 /*控制侧边栏进出的按钮（外部包裹）*/
 #wrap {
   position: fixed;
@@ -86,6 +42,7 @@ label:hover {
   padding-left: 42vmin;
 }
 
+/* 左侧模型栏 */
 .leftnav {
 /*  border: 1px solid red;*/
   position: absolute;
@@ -120,22 +77,8 @@ label:hover {
 /*  border: 1px solid #ECECEC;
   padding: 3vmin 0;*/
 }
-/*
-#modelnav li a {
-  color: #000000;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 3vmin 0;
-/*  background-color: #ECECEC;
-}
 
-#modelnav li a:hover {
-  background-color: #bbbbbb;
-  color: #fff;
-}
-*/
+/* 模型图片布局利用flex，自动扩充 */
 .modelImg {
 /*  border: 1px solid black;*/
   flex: 1;
@@ -174,3 +117,21 @@ label:hover {
   align-content: flex-start;
 }
 
+/*
+#toolbarnav {
+  list-style-type: none;
+  border: 1px solid black;
+  height: 100%;
+  margin-top: -0.25vmin;
+}
+
+#toolbarnav li { 
+  display: inline;
+  font-family: Microsoft Yahei, serif;
+  font-size: 2vmin;
+  font-weight: bold;
+  margin: 2vmin;
+  border: 1px solid red;
+}
+
+*/
