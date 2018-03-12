@@ -142,3 +142,16 @@ body {
 	cursor: pointer;
 
 }
+
+/*操作提示*/
+.tips {
+	position: fixed;
+	right: 0;
+	width: 25%;
+	color: #696969;
+	font-size: 0.8em;
+}
+
+.title {
+	font-weight: bold;
+}
