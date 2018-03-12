@@ -1,9 +1,10 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-var container = document.getElementById("container");
-var pointbutton = document.getElementById("point");		//锚点
-var addbutton = document.getElementById("add");			//增加模型
-var tubebutton = document.getElementById("linetube");	//管道
+var container = document.getElementById( "container" );
+var pointbutton = document.getElementById( "point" );		//锚点
+var addbutton = document.getElementById( "add" );			//增加模型
+var tubebutton = document.getElementById( "linetube" );		//管道
+var deletebutton = document.getElementById( "delete");		//移除
 
 var camera, scene, renderer, controls;
 var transformControl;
@@ -311,7 +312,7 @@ function onWindowResize() {
 function onKeyDown( event ) {
 
 	event.preventDefault();
-//	console.log( event.keyCode );
+	console.log( event.keyCode );
 
 	switch ( event.keyCode ) {
 
@@ -339,6 +340,13 @@ function onKeyDown( event ) {
 				isAttach = !isAttach;
 
 //			transformControl.visible = isAttach;
+			break;
+
+		case 46: //delete
+			isRemove = true;
+			if( numberofModel > 0 ){
+				numberofModel --;
+			}			
 			break;
 
 		case 97:
@@ -500,6 +508,7 @@ function onDocumentMouseDown( event ) {
 
 		    changeButtonStyle( pointbutton, 1 );
 		    changeButtonStyle( tubebutton, 1 );
+		    changeButtonStyle( deletebutton, 1 );
 
 			isGround = false;
 
@@ -744,7 +753,7 @@ function render() {
 				var voxel = new THREE.Mesh( Box[ 0 ], voxelMaterial );	//包围盒
 				voxel.scale.set( X, X, X );	//缩放包围盒
 
-				//获取鼠标点击位置
+				//获取位置
 				voxel.position.set( addModels[ i ].position.x, addModels[ i ].position.y, addModels[ i ].position.z );
 				console.log( boundingBoxName.length );
 				voxel.name = addModels[ i ].name + boundingBoxName.length;	//设置包围盒名字
@@ -796,7 +805,7 @@ function render() {
 					var voxel = new THREE.Mesh( Box[ 0 ], voxelMaterial );	//包围盒
 					voxel.scale.set( X, X, X );	//缩放包围盒
 
-					//获取鼠标点击位置
+					//获取位置
 					if( tubeInfos[ i ].angle == -Math.PI / 2 )
 						voxel.position.set( tubeInfos[ i ].startpos.x - j * 77, tubeInfos[ i ].startpos.y, tubeInfos[ i ].startpos.z );
 					else if( tubeInfos[ i ].angle == Math.PI / 2 )
@@ -917,9 +926,14 @@ function render() {
 		var box = boundingBoxes[ index_of_boundingbox ];
 		var model = models[ index_of_boundingbox ];
 		transformControl.attach( box );
-		model.position.set( box.position.x, box.position.y, box.position.z );
 		model.rotation.set( box.rotation.x, box.rotation.y, box.rotation.z );
-		model.scale.set( box.scale.x, box.scale.y, box.scale.z );	
+		model.scale.set( box.scale.x, box.scale.y, box.scale.z );			
+		if( box.position.y > 0 )
+			model.position.set( box.position.x, box.position.y, box.position.z );
+		else {
+			box.position.y = 0;
+			model.position.set( box.position.x, box.position.y, box.position.z );
+		}
 
 		
 	}
@@ -928,9 +942,9 @@ function render() {
 
 
 	if( isRemove ){
-
-		if( index > 3 ){
-
+/*
+		if( index > 3 ){ 
+*/
 			if( index == 4 ) {
 
 				scene.remove( scene.children[ index - 1 ] );
@@ -948,6 +962,7 @@ function render() {
 			    changeButtonStyle( pointbutton, 0 );
 			    changeButtonStyle( addbutton, 0 );
 			    changeButtonStyle( tubebutton, 0 );
+			    changeButtonStyle( deletebutton, 0 );
 
 			}
 			else {
@@ -965,11 +980,11 @@ function render() {
 			}
 			
 			isRemove = false;
-		}
+/*		}
 		else{
 			alert( "无模型可删除" );
 			isRemove = false;		    			
-		}
+		}*/
 
 
 	}
@@ -1284,14 +1299,14 @@ function changeButtonStyle( name, mode ) {
 	switch( mode ) {
 		case 0:
 			name.disabled = true;
-			name.style.color="black";
-			name.style.background="#bbbbbb";
+			name.style.color="#bbbbbb";
+/*			name.style.background="#bbbbbb";*/
 		    name.style.cursor = "default";	
 		    break;
 		case 1:
 			name.disabled = false;
-			name.style.color="white";
-			name.style.background = "#4CAF50";
+			name.style.color="black";
+/*			name.style.background = "#4CAF50";*/
 			name.style.cursor = "pointer";	
 			break;	    	
 	}
